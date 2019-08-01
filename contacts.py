@@ -27,10 +27,7 @@ def edit_contact(contacts, name, number):
 
 
 def find_contact(contacts, name):
-    try:
-        print(name, ': ', contacts[name])
-    except KeyError:
-        print('Kayit bulunamadi.')
+    print(name, ': ', contacts.get(name,'Kayit bulunamadi.'))
 
 
 def print_all_contacts(contacts):
@@ -61,7 +58,7 @@ def input_number(message):
     return number
 
 
-contacts={} #dict {name: number}
+contacts={} # dict {name: number}
 system('clear')
 print_main_menu()
 while(True):
