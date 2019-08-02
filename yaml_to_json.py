@@ -13,7 +13,7 @@ def yaml_to_json(yaml_file, json_file=None):
     except yaml.scanner.ScannerError:
         return 'ERROR! Yaml file is corrupted.'
     # Convert Yaml to Json
-    json_data = json.dumps(yaml_data)
+    json_data = json.dumps(yaml_data, indent=4)
     # Write Json Data to File
     if json_file:
         with open(json_file,'w') as j:
