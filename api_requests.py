@@ -8,7 +8,7 @@ import logging
 def client_method(func):
     def wrapper(*args, **kwargs):
         response = func(*args, **kwargs)
-        return response.json() if response.status_code == 200 else None
+        return response.json()['results'] if response.status_code == 200 else None
     return wrapper
 
 
@@ -20,15 +20,13 @@ def make_request(count):
 def get_users(count):
     data = make_request(count)
     users = []
-    for i in range(count):
+    for item in data:
         user = {}
-        # title, first and last are optional
-        user['title'] = data.get('results')[i].get('name').get('title')
-        user['first'] = data.get('results')[i].get('name').get('first')
-        user['last'] = data.get('results')[i].get('name').get('last')
-        # username and password are required
-        user['username'] = data['results'][i]['login']['username']
-        user['password'] = data['results'][i]['login']['password']
+        user['title'] = item['name']['title']
+        user['first'] = item['name']['first']
+        user['last'] = item['name']['last']
+        user['username'] = item['login']['username']
+        user['password'] = item['login']['password']
         # append user info in users array
         users.append(user)
     # return users in json format
